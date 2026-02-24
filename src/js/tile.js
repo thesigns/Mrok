@@ -3,6 +3,9 @@ export const TileType = {
   WALL: "wall",
   DOOR_OPEN: "door_open",
   DOOR_CLOSED: "door_closed",
+  WATER_SHALLOW: "water_shallow",
+  WATER_DEEP: "water_deep",
+  GRAVE: "grave",
 };
 
 export class Tile {

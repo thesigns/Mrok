@@ -31,6 +31,7 @@ export class SceneGenerator2 {
     this.connectRooms(scene);
     this.removeDisconnectedRooms(scene);
     this.specializeRooms(scene);
+    this.specializeRoomFeatures(scene);
     this.processDoors(scene);
 
     const player = this.placePlayer(scene);
@@ -398,6 +399,52 @@ export class SceneGenerator2 {
     for (const [dx, dy] of dirs) {
       if (this.isDoor(scene, x + dx, y + dy)) return true;
     }
+    return false;
+  }
+
+  // --- Phase 4b: Room Feature Specialization ---
+
+  specializeRoomFeatures(scene) {
+    for (const room of this.rooms) {
+      if (Math.random() >= 0.2) continue;
+      if (Math.random() < 0.5)
+        this.applyWaterContainer(scene, room);
+      else
+        this.applyGraveyard(scene, room);
+    }
+  }
+
+  applyWaterContainer(scene, room) {
+    // Pass 1: floor → deep water
+    for (let y = room.y; y < room.y + room.h; y++)
+      for (let x = room.x; x < room.x + room.w; x++)
+        if (scene.get(x, y).type === TileType.FLOOR)
+          scene.set(x, y, TileType.WATER_DEEP);
+
+    // Pass 2: deep water adjacent to solid → shallow water
+    for (let y = room.y; y < room.y + room.h; y++)
+      for (let x = room.x; x < room.x + room.w; x++)
+        if (scene.get(x, y).type === TileType.WATER_DEEP && this.isAdjacentToSolid(scene, x, y))
+          scene.set(x, y, TileType.WATER_SHALLOW);
+  }
+
+  applyGraveyard(scene, room) {
+    for (let y = room.y; y < room.y + room.h; y++)
+      for (let x = room.x; x < room.x + room.w; x++)
+        if (scene.get(x, y).type === TileType.FLOOR && Math.random() < 0.2)
+          scene.set(x, y, TileType.GRAVE);
+  }
+
+  isAdjacentToSolid(scene, x, y) {
+    for (let dy = -1; dy <= 1; dy++)
+      for (let dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        const nx = x + dx;
+        const ny = y + dy;
+        if (!scene.inBounds(nx, ny)) continue;
+        if (scene.get(nx, ny).type === TileType.WALL)
+          return true;
+      }
     return false;
   }
 

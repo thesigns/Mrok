@@ -63,15 +63,9 @@ function castLight(scene, ox, oy, radius, row, startSlope, endSlope, octant) {
 
 export class FOV {
   static compute(scene, ox, oy, radius) {
-    for (let dy = -radius; dy <= radius; dy++) {
-      for (let dx = -radius; dx <= radius; dx++) {
-        const x = ox + dx;
-        const y = oy + dy;
-        if (scene.inBounds(x, y)) {
-          scene.get(x, y).visible = false;
-        }
-      }
-    }
+    for (let y = 0; y < scene.height; y++)
+      for (let x = 0; x < scene.width; x++)
+        scene.get(x, y).visible = false;
 
     const origin = scene.get(ox, oy);
     origin.visible = true;

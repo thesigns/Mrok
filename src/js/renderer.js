@@ -10,6 +10,9 @@ const TILE_IMAGE = {
   [TileType.WALL]: 2,
   [TileType.DOOR_OPEN]: 3,
   [TileType.DOOR_CLOSED]: 4,
+  [TileType.WATER_SHALLOW]: 5,
+  [TileType.WATER_DEEP]: 5,
+  [TileType.GRAVE]: 6,
 };
 
 const TILE_TINT = {
@@ -17,6 +20,9 @@ const TILE_TINT = {
   [TileType.WALL]: "#999",
   [TileType.DOOR_OPEN]: "#8B4513",
   [TileType.DOOR_CLOSED]: "#8B4513",
+  [TileType.WATER_SHALLOW]: "#4488cc",
+  [TileType.WATER_DEEP]: "#224488",
+  [TileType.GRAVE]: "#555",
 };
 
 export class Renderer {
@@ -31,7 +37,7 @@ export class Renderer {
   }
 
   load() {
-    const ids = [0, 1, 2, 3, 4];
+    const ids = [0, 1, 2, 3, 4, 5, 6];
     const promises = ids.map(id => new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => { this.images[id] = img; resolve(); };
@@ -63,10 +69,10 @@ export class Renderer {
         const imgId = TILE_IMAGE[tile.type];
         const dx = sx * DRAW_SIZE;
         const dy = sy * DRAW_SIZE;
-        this.drawTinted(ctx, this.images[imgId], dx, dy, TILE_TINT[tile.type]);
-
         if (tile.visible && tile.critter) {
           this.drawTinted(ctx, this.images[0], dx, dy, tile.critter.tint);
+        } else {
+          this.drawTinted(ctx, this.images[imgId], dx, dy, TILE_TINT[tile.type]);
         }
 
         if (!tile.visible) {
@@ -90,12 +96,16 @@ export class Renderer {
         const bright = tile.visible;
         const t = tile.type;
 
-        if (t === TileType.FLOOR)
+        if (t === TileType.FLOOR || t === TileType.GRAVE)
           ctx.fillStyle = bright ? "#666" : "#333";
         else if (t === TileType.WALL)
           ctx.fillStyle = bright ? "#999" : "#555";
         else if (t === TileType.DOOR_OPEN || t === TileType.DOOR_CLOSED)
           ctx.fillStyle = bright ? "#8B6530" : "#5a3a10";
+        else if (t === TileType.WATER_SHALLOW)
+          ctx.fillStyle = bright ? "#4488cc" : "#224466";
+        else if (t === TileType.WATER_DEEP)
+          ctx.fillStyle = bright ? "#224488" : "#112244";
 
         ctx.fillRect(x * PX, y * PX, PX, PX);
       }
@@ -106,8 +116,8 @@ export class Renderer {
     ctx.fillRect(player.x * PX, player.y * PX, PX, PX);
 
     // Viewport frame
-    const vx = (player.x - 5) * PX;
-    const vy = (player.y - 5) * PX;
+    const vx = (player.x - 7) * PX;
+    const vy = (player.y - 7) * PX;
     ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
     ctx.lineWidth = 1;
     ctx.strokeRect(vx + 0.5, vy + 0.5, VIEW * PX - 1, VIEW * PX - 1);

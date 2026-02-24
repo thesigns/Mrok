@@ -24,7 +24,7 @@ export class Scene {
   isPassable(x, y) {
     if (!this.inBounds(x, y)) return false;
     const tile = this.get(x, y);
-    if (tile.type === TileType.WALL || tile.type === TileType.DOOR_CLOSED) return false;
+    if (tile.type === TileType.WALL || tile.type === TileType.DOOR_CLOSED || tile.type === TileType.WATER_DEEP) return false;
     if (tile.critter) return false;
     return true;
   }
