@@ -24,6 +24,37 @@ main {
   width: 100%;
 }
 
+#install-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+#install-screen[hidden] {
+  display: none;
+}
+
+#install-btn {
+  padding: 1.5rem 3rem;
+  font-size: 2rem;
+  font-family: inherit;
+  border: 2px solid #5a6a5a;
+  border-radius: 8px;
+  background: #3a4a3a;
+  color: #fff;
+  cursor: pointer;
+}
+
+#install-btn:active {
+  background: #4a5a4a;
+}
+
+main[hidden] {
+  display: none !important;
+}
+
 canvas {
   display: block;
   background: #000;
