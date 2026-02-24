@@ -1,8 +1,8 @@
-import { SceneGenerator } from "./scene_generator.js";
+import { SceneGenerator2 } from "./scene_generator2.js";
 
 export class Session {
   constructor() {
-    const generator = new SceneGenerator();
+    const generator = new SceneGenerator2();
     const { scene, player } = generator.generate();
     this.scene = scene;
     this.player = player;

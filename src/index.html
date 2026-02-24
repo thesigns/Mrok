@@ -13,40 +13,34 @@
             <button id="install-btn">Install Mrok</button>
         </div>
         <main hidden>
-            <div id="panel-left" class="panel">
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
+            <div id="panel-left">
+                <div id="stats">Hit Points: 100</div>
+                <div class="button-grid">
+                    <div class="btn">?</div>
+                    <div class="btn">?</div>
+                    <div class="btn">?</div>
+                    <div class="btn">?</div>
+                    <div class="btn">?</div>
+                    <div class="btn">?</div>
+                    <div class="btn">?</div>
+                    <div class="btn">?</div>
+                    <div class="btn">?</div>
+                </div>
             </div>
             <canvas width="352" height="352"></canvas>
-            <div id="panel-right" class="panel">
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn" data-dx="-1" data-dy="-1">↖</div>
-                <div class="btn" data-dx="0" data-dy="-1">↑</div>
-                <div class="btn" data-dx="1" data-dy="-1">↗</div>
-                <div class="btn" data-dx="-1" data-dy="0">←</div>
-                <div class="btn" data-dx="0" data-dy="0">·</div>
-                <div class="btn" data-dx="1" data-dy="0">→</div>
-                <div class="btn" data-dx="-1" data-dy="1">↙</div>
-                <div class="btn" data-dx="0" data-dy="1">↓</div>
-                <div class="btn" data-dx="1" data-dy="1">↘</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
-                <div class="btn">?</div>
+            <div id="panel-right">
+                <canvas id="minimap" width="210" height="138"></canvas>
+                <div class="compass">
+                    <div class="btn" data-dx="-1" data-dy="-1">↖</div>
+                    <div class="btn" data-dx="0" data-dy="-1">↑</div>
+                    <div class="btn" data-dx="1" data-dy="-1">↗</div>
+                    <div class="btn" data-dx="-1" data-dy="0">←</div>
+                    <div class="btn" data-dx="0" data-dy="0">·</div>
+                    <div class="btn" data-dx="1" data-dy="0">→</div>
+                    <div class="btn" data-dx="-1" data-dy="1">↙</div>
+                    <div class="btn" data-dx="0" data-dy="1">↓</div>
+                    <div class="btn" data-dx="1" data-dy="1">↘</div>
+                </div>
             </div>
         </main>
     </body>

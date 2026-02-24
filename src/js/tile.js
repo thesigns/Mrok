@@ -9,5 +9,11 @@ export class Tile {
   constructor(type = TileType.FLOOR) {
     this.type = type;
     this.critter = null;
+    this.visible = false;
+    this.revealed = false;
+  }
+
+  isOpaque() {
+    return this.type === TileType.WALL || this.type === TileType.DOOR_CLOSED;
   }
 }

@@ -60,16 +60,34 @@ canvas {
   background: #000;
 }
 
-.panel {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+#panel-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   width: 210px;
   height: 352px;
-  gap: 4px;
 }
 
-.panel .btn {
+#stats {
+  height: 138px;
+  background: #111;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 8px;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  flex: 1;
+}
+
+.button-grid .btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,20 +102,51 @@ canvas {
   touch-action: manipulation;
 }
 
-#panel-right .btn[data-dx] {
-  background: #3a4a3a;
-  border-color: #5a6a5a;
+.button-grid .btn:active {
+  background: #555;
 }
 
-#panel-right .btn[data-dx].blocked {
+#panel-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 210px;
+  height: 352px;
+}
+
+#minimap {
+  display: block;
+  background: #000;
+}
+
+.compass {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  flex: 1;
+}
+
+.compass .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Sans Symbols 2', sans-serif;
+  font-size: 1.2rem;
+  border: 1px solid #5a6a5a;
+  border-radius: 4px;
+  background: #3a4a3a;
+  color: #fff;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.compass .btn.blocked {
   background: #333;
   border-color: #555;
 }
 
-.panel .btn:active {
-  background: #555;
-}
-
-#panel-right .btn[data-dx]:active {
+.compass .btn:active {
   background: #4a5a4a;
 }
