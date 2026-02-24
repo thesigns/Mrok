@@ -64,12 +64,15 @@ canvas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
+  width: 210px;
   height: 352px;
   gap: 4px;
 }
 
-.panel button {
-  aspect-ratio: 1;
+.panel .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'Noto Sans Symbols 2', sans-serif;
   font-size: 1.2rem;
   border: 1px solid #555;
@@ -77,22 +80,24 @@ canvas {
   background: #333;
   color: #fff;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-#panel-right button[data-dx] {
+#panel-right .btn[data-dx] {
   background: #3a4a3a;
   border-color: #5a6a5a;
 }
 
-#panel-right button[data-dx].blocked {
+#panel-right .btn[data-dx].blocked {
   background: #333;
   border-color: #555;
 }
 
-.panel button:active {
+.panel .btn:active {
   background: #555;
 }
 
-#panel-right button[data-dx]:active {
+#panel-right .btn[data-dx]:active {
   background: #4a5a4a;
 }

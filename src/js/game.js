@@ -16,7 +16,7 @@ export class Game {
     const panel = document.querySelector("#panel-right");
 
     panel.addEventListener("pointerdown", (e) => {
-      const btn = e.target.closest("button[data-dx]");
+      const btn = e.target.closest(".btn[data-dx]");
       if (!btn) return;
       e.preventDefault();
       const dx = parseInt(btn.dataset.dx);
@@ -69,7 +69,7 @@ export class Game {
   updateControls() {
     const player = this.session.player;
     const scene = this.session.scene;
-    const buttons = document.querySelectorAll("#panel-right button[data-dx]");
+    const buttons = document.querySelectorAll("#panel-right .btn[data-dx]");
     for (const btn of buttons) {
       const dx = parseInt(btn.dataset.dx);
       const dy = parseInt(btn.dataset.dy);
