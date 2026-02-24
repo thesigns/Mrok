@@ -7,7 +7,10 @@ Written as a progressive web app using vanilla JavaScript and HTML5 Canvas. No f
 ## Features
 
 - Tile-based roguelike with 8-directional movement
-- 64x64 procedurally generated maps
+- 70x46 procedurally generated dungeons (rooms, corridors, doors)
+- Room shape specializations (columns, rounded corners, center cross)
+- Field of view with fog of war (recursive shadowcasting)
+- Minimap showing explored areas
 - Touch controls via on-screen compass rose with hold-to-repeat
 - Mobile-first (landscape orientation, fullscreen PWA)
 - Pixel art with color tinting
