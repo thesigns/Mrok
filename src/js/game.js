@@ -8,16 +8,36 @@ export class Game {
     this.ctx = canvas.getContext("2d");
     this.renderer = new Renderer();
     this.session = new Session();
+    this.repeatTimeout = null;
+    this.repeatInterval = null;
 
     this.renderer.load().then(() => this.render());
 
-    document.querySelector("#controls").addEventListener("click", (e) => {
+    const panel = document.querySelector("#panel-right");
+
+    panel.addEventListener("pointerdown", (e) => {
       const btn = e.target.closest("button[data-dx]");
       if (!btn) return;
+      e.preventDefault();
       const dx = parseInt(btn.dataset.dx);
       const dy = parseInt(btn.dataset.dy);
       this.movePlayer(dx, dy);
+      this.stopRepeat();
+      this.repeatTimeout = setTimeout(() => {
+        this.repeatInterval = setInterval(() => this.movePlayer(dx, dy), 100);
+      }, 500);
     });
+
+    panel.addEventListener("pointerup", () => this.stopRepeat());
+    panel.addEventListener("pointerleave", () => this.stopRepeat());
+    panel.addEventListener("contextmenu", (e) => e.preventDefault());
+  }
+
+  stopRepeat() {
+    clearTimeout(this.repeatTimeout);
+    clearInterval(this.repeatInterval);
+    this.repeatTimeout = null;
+    this.repeatInterval = null;
   }
 
   movePlayer(dx, dy) {
@@ -49,7 +69,7 @@ export class Game {
   updateControls() {
     const player = this.session.player;
     const scene = this.session.scene;
-    const buttons = document.querySelectorAll("#controls button[data-dx]");
+    const buttons = document.querySelectorAll("#panel-right button[data-dx]");
     for (const btn of buttons) {
       const dx = parseInt(btn.dataset.dx);
       const dy = parseInt(btn.dataset.dy);
