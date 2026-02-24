@@ -19,9 +19,9 @@ main {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   min-height: 100dvh;
-  gap: 8px;
+  width: 100%;
 }
 
 canvas {
