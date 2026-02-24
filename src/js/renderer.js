@@ -1,9 +1,9 @@
 import { TileType } from "./tile.js";
 
-const TILE_SIZE = 16;
-const SCALE = 2;
+const TILE_SIZE = 24;
+const SCALE = 1;
 const DRAW_SIZE = TILE_SIZE * SCALE;
-const VIEW = 11;
+const VIEW = 15;
 
 const TILE_IMAGE = {
   [TileType.FLOOR]: 1,
@@ -46,8 +46,8 @@ export class Renderer {
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, VIEW * DRAW_SIZE, VIEW * DRAW_SIZE);
 
-    const camX = player.x - 5;
-    const camY = player.y - 5;
+    const camX = player.x - 7;
+    const camY = player.y - 7;
 
     for (let sy = 0; sy < VIEW; sy++) {
       for (let sx = 0; sx < VIEW; sx++) {

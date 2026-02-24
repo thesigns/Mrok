@@ -65,7 +65,7 @@ canvas {
   flex-direction: column;
   gap: 4px;
   width: 210px;
-  height: 352px;
+  height: 360px;
 }
 
 #stats {
@@ -111,7 +111,7 @@ canvas {
   flex-direction: column;
   gap: 4px;
   width: 210px;
-  height: 352px;
+  height: 360px;
 }
 
 #minimap {
