@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Mrok is a traditional roguelike game built as a Progressive Web App (PWA) using vanilla JavaScript and HTML5 Canvas. It targets mobile browsers in portrait orientation with offline capability.
+Mrok is a traditional roguelike game built as a Progressive Web App (PWA) using vanilla JavaScript and HTML5 Canvas. It targets mobile browsers in landscape orientation with offline capability.
 
 ## Development
 
@@ -16,9 +16,9 @@ To develop locally, serve the `src/` directory with any static HTTP server (e.g.
 
 All JavaScript uses ES6 modules (`<script type="module">`), no frameworks or dependencies.
 
-- **`src/index.html`** — entry point: 352x352 canvas + 5x5 button grid (`#controls`)
+- **`src/index.html`** — entry point: landscape layout with `#panel-left` (3x5 buttons), 352x352 canvas, `#panel-right` (3x5 buttons with compass rose in center 3x3)
 - **`src/js/main.js`** — creates `Game` instance
-- **`src/js/game.js`** — `Game` class: owns canvas, `Session`, `Renderer`; handles player input from compass buttons via `data-dx`/`data-dy` attributes; updates button states (wall-blocked directions get `.blocked` class)
+- **`src/js/game.js`** — `Game` class: owns canvas, `Session`, `Renderer`; handles player input from compass buttons via `data-dx`/`data-dy` attributes with auto-repeat (500ms delay, then 100ms interval); updates button states (wall-blocked directions get `.blocked` class)
 - **`src/js/session.js`** — `Session` class: holds current `Scene` and `player` (Critter)
 - **`src/js/scene.js`** — `Scene` class: 64x64 grid of `Tile` objects; methods `get()`, `set()`, `inBounds()`, `isPassable()`
 - **`src/js/scene_generator.js`** — `SceneGenerator`: fills scene with floor + ~15% random walls, places player on a random floor tile
@@ -35,7 +35,9 @@ All JavaScript uses ES6 modules (`<script type="module">`), no frameworks or dep
 
 ### Controls
 
-The `#controls` div is a 5x5 CSS grid below the canvas. The inner 3x3 is the movement compass (buttons with `data-dx`/`data-dy`), surrounding buttons are placeholders (`?`) for future actions. Compass buttons blocked by walls get the `.blocked` CSS class.
+Landscape layout: `[#panel-left 3x5] [canvas] [#panel-right 3x5]` in a flex row. Both panels use CSS grid (3 columns, 5 rows) matching canvas height (352px). The inner 3x3 of `#panel-right` is the movement compass (buttons with `data-dx`/`data-dy`), all other buttons are `?` placeholders for future actions.
+
+Input uses `pointerdown`/`pointerup`/`pointerleave` events with auto-repeat: first move fires immediately, repeat starts after 500ms, then every 100ms. Context menu is suppressed on the panel. Compass buttons blocked by walls get the `.blocked` CSS class. Text selection is disabled globally (`user-select: none`).
 
 ### Assets
 

@@ -8,8 +8,8 @@ Written as a progressive web app using vanilla JavaScript and HTML5 Canvas. No f
 
 - Tile-based roguelike with 8-directional movement
 - 64x64 procedurally generated maps
-- Touch controls via on-screen compass rose
-- Mobile-first (portrait orientation, fullscreen PWA)
+- Touch controls via on-screen compass rose with hold-to-repeat
+- Mobile-first (landscape orientation, fullscreen PWA)
 - Pixel art with color tinting
 - Works offline
 
