@@ -5,7 +5,7 @@ export class Scene {
     this.width = width;
     this.height = height;
     this.tiles = Array.from({ length: height }, () =>
-      Array.from({ length: width }, () => new Tile(TileType.FLOOR))
+      Array.from({ length: width }, () => new Tile())
     );
   }
 
@@ -14,7 +14,12 @@ export class Scene {
   }
 
   set(x, y, type) {
-    this.tiles[y][x].type = type;
+    const old = this.tiles[y][x];
+    const tile = Tile.create(type);
+    tile.critter = old.critter;
+    tile.visible = old.visible;
+    tile.revealed = old.revealed;
+    this.tiles[y][x] = tile;
   }
 
   inBounds(x, y) {
@@ -24,7 +29,7 @@ export class Scene {
   isPassable(x, y) {
     if (!this.inBounds(x, y)) return false;
     const tile = this.get(x, y);
-    if (tile.type === TileType.WALL || tile.type === TileType.DOOR_CLOSED || tile.type === TileType.WATER_DEEP) return false;
+    if (!tile.passable) return false;
     if (tile.critter) return false;
     return true;
   }

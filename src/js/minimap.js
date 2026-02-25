@@ -1,5 +1,3 @@
-import { TileType } from "./tile.js";
-
 const PX = 3;
 const VIEW = 15;
 
@@ -17,22 +15,7 @@ export class Minimap {
         const tile = scene.get(x, y);
         if (!tile.revealed) continue;
 
-        const bright = tile.visible;
-        const t = tile.type;
-
-        if (t === TileType.FLOOR || t === TileType.GRAVE)
-          ctx.fillStyle = bright ? "#666" : "#333";
-        else if (t === TileType.WALL)
-          ctx.fillStyle = bright ? "#999" : "#555";
-        else if (t === TileType.DOOR_OPEN || t === TileType.DOOR_CLOSED)
-          ctx.fillStyle = bright ? "#8B6530" : "#5a3a10";
-        else if (t === TileType.WATER_SHALLOW)
-          ctx.fillStyle = bright ? "#4488cc" : "#224466";
-        else if (t === TileType.WATER_DEEP)
-          ctx.fillStyle = bright ? "#224488" : "#112244";
-        else if (t === TileType.STAIRS_DOWN)
-          ctx.fillStyle = bright ? "#aa8855" : "#554428";
-
+        ctx.fillStyle = tile.visible ? tile.minimapBright : tile.minimapDark;
         ctx.fillRect(x * PX, y * PX, PX, PX);
       }
     }

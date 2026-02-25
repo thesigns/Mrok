@@ -1,31 +1,7 @@
-import { TileType } from "./tile.js";
-
 const TILE_SIZE = 24;
 const SCALE = 1;
 const DRAW_SIZE = TILE_SIZE * SCALE;
 const VIEW = 15;
-
-const TILE_IMAGE = {
-  [TileType.FLOOR]: 1,
-  [TileType.WALL]: 2,
-  [TileType.DOOR_OPEN]: 3,
-  [TileType.DOOR_CLOSED]: 4,
-  [TileType.WATER_SHALLOW]: 5,
-  [TileType.WATER_DEEP]: 5,
-  [TileType.GRAVE]: 6,
-  [TileType.STAIRS_DOWN]: 7,
-};
-
-const TILE_TINT = {
-  [TileType.FLOOR]: "#555",
-  [TileType.WALL]: "#999",
-  [TileType.DOOR_OPEN]: "#8B4513",
-  [TileType.DOOR_CLOSED]: "#8B4513",
-  [TileType.WATER_SHALLOW]: "#4488cc",
-  [TileType.WATER_DEEP]: "#224488",
-  [TileType.GRAVE]: "#555",
-  [TileType.STAIRS_DOWN]: "#aa8855",
-};
 
 export class Renderer {
   constructor() {
@@ -68,13 +44,12 @@ export class Renderer {
 
         if (!tile.revealed) continue;
 
-        const imgId = TILE_IMAGE[tile.type];
         const dx = sx * DRAW_SIZE;
         const dy = sy * DRAW_SIZE;
         if (tile.visible && tile.critter) {
           this.drawTinted(ctx, this.images[0], dx, dy, tile.critter.tint);
         } else {
-          this.drawTinted(ctx, this.images[imgId], dx, dy, TILE_TINT[tile.type]);
+          this.drawTinted(ctx, this.images[tile.image], dx, dy, tile.tint);
         }
 
         if (!tile.visible) {
