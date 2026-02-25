@@ -13,6 +13,7 @@ const TILE_IMAGE = {
   [TileType.WATER_SHALLOW]: 5,
   [TileType.WATER_DEEP]: 5,
   [TileType.GRAVE]: 6,
+  [TileType.STAIRS_DOWN]: 7,
 };
 
 const TILE_TINT = {
@@ -23,6 +24,7 @@ const TILE_TINT = {
   [TileType.WATER_SHALLOW]: "#4488cc",
   [TileType.WATER_DEEP]: "#224488",
   [TileType.GRAVE]: "#555",
+  [TileType.STAIRS_DOWN]: "#aa8855",
 };
 
 export class Renderer {
@@ -37,7 +39,7 @@ export class Renderer {
   }
 
   load() {
-    const ids = [0, 1, 2, 3, 4, 5, 6];
+    const ids = [0, 1, 2, 3, 4, 5, 6, 7];
     const promises = ids.map(id => new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => { this.images[id] = img; resolve(); };
@@ -81,46 +83,6 @@ export class Renderer {
         }
       }
     }
-  }
-
-  drawMinimap(ctx, scene, player) {
-    const PX = 3;
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, scene.width * PX, scene.height * PX);
-
-    for (let y = 0; y < scene.height; y++) {
-      for (let x = 0; x < scene.width; x++) {
-        const tile = scene.get(x, y);
-        if (!tile.revealed) continue;
-
-        const bright = tile.visible;
-        const t = tile.type;
-
-        if (t === TileType.FLOOR || t === TileType.GRAVE)
-          ctx.fillStyle = bright ? "#666" : "#333";
-        else if (t === TileType.WALL)
-          ctx.fillStyle = bright ? "#999" : "#555";
-        else if (t === TileType.DOOR_OPEN || t === TileType.DOOR_CLOSED)
-          ctx.fillStyle = bright ? "#8B6530" : "#5a3a10";
-        else if (t === TileType.WATER_SHALLOW)
-          ctx.fillStyle = bright ? "#4488cc" : "#224466";
-        else if (t === TileType.WATER_DEEP)
-          ctx.fillStyle = bright ? "#224488" : "#112244";
-
-        ctx.fillRect(x * PX, y * PX, PX, PX);
-      }
-    }
-
-    // Player dot
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(player.x * PX, player.y * PX, PX, PX);
-
-    // Viewport frame
-    const vx = (player.x - 7) * PX;
-    const vy = (player.y - 7) * PX;
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-    ctx.lineWidth = 1;
-    ctx.strokeRect(vx + 0.5, vy + 0.5, VIEW * PX - 1, VIEW * PX - 1);
   }
 
   drawTinted(ctx, img, x, y, tint) {

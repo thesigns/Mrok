@@ -33,6 +33,7 @@ export class SceneGenerator2 {
     this.specializeRooms(scene);
     this.specializeRoomFeatures(scene);
     this.processDoors(scene);
+    this.placeStairs(scene);
 
     const player = this.placePlayer(scene);
     return { scene, player };
@@ -487,6 +488,19 @@ export class SceneGenerator2 {
     }
 
     return true;
+  }
+
+  // --- Stairs Placement ---
+
+  placeStairs(scene) {
+    while (true) {
+      const x = Math.floor(Math.random() * this.width);
+      const y = Math.floor(Math.random() * this.height);
+      if (scene.get(x, y).type === TileType.FLOOR) {
+        scene.set(x, y, TileType.STAIRS_DOWN);
+        return;
+      }
+    }
   }
 
   // --- Player Placement ---

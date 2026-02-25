@@ -13,27 +13,123 @@ html, body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 main {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  min-height: 100dvh;
-  width: 100%;
+  width: 800px;
+  height: 360px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
 }
 
 #install-screen {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100dvh;
-  width: 100%;
+  width: 800px;
+  height: 360px;
 }
 
 #install-screen[hidden] {
   display: none;
+}
+
+#installed-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 800px;
+  height: 360px;
+}
+
+#installed-screen[hidden] {
+  display: none;
+}
+
+#menu-screen {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 800px;
+  height: 360px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+#menu-screen[hidden] {
+  display: none;
+}
+
+.menu-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 210px;
+}
+
+.menu-title {
+  image-rendering: pixelated;
+}
+
+.menu-btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  font-family: inherit;
+  border: 2px solid #5a6a5a;
+  border-radius: 8px;
+  background: #3a4a3a;
+  color: #fff;
+  cursor: pointer;
+}
+
+.menu-btn:active {
+  background: #4a5a4a;
+}
+
+#game-screen {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 5px;
+  gap: 5px;
+  width: 800px;
+  height: 360px;
+  box-sizing: border-box;
+}
+
+#game-screen[hidden] {
+  display: none;
+}
+
+.screen-message {
+  text-align: center;
+  padding: 2rem;
+  border: 2px solid #5a6a5a;
+  border-radius: 8px;
+  background: #2a3a2a;
+  max-width: 400px;
+}
+
+.screen-message h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  color: #aabbaa;
+}
+
+.screen-message p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.screen-message .hint {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #888;
 }
 
 #install-btn {
@@ -51,13 +147,34 @@ main {
   background: #4a5a4a;
 }
 
-main[hidden] {
-  display: none !important;
-}
-
 canvas {
   display: block;
   background: #000;
+  image-rendering: pixelated;
+}
+
+.viewport-wrap {
+  position: relative;
+}
+
+#infobox {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  padding: 10px 14px;
+  background: #4a3f35;
+  color: #ddd;
+  font-size: 0.85rem;
+  text-align: center;
+  border: 3px double #8a7a6a;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+#infobox.orange {
+  background: #8a5a2a;
+  border-color: #cc8844;
 }
 
 #panel-left {
@@ -70,9 +187,6 @@ canvas {
 
 #stats {
   height: 138px;
-  background: #111;
-  border: 1px solid #555;
-  border-radius: 4px;
   padding: 8px;
   box-sizing: border-box;
   font-size: 0.9rem;
@@ -83,7 +197,8 @@ canvas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 4px;
+  gap: 6px;
+  padding: 6px;
   flex: 1;
 }
 
@@ -93,8 +208,8 @@ canvas {
   justify-content: center;
   font-family: 'Noto Sans Symbols 2', sans-serif;
   font-size: 1.2rem;
-  border: 1px solid #555;
-  border-radius: 4px;
+  border: 2px solid #555;
+  border-radius: 3px;
   background: #333;
   color: #fff;
   cursor: pointer;
@@ -102,8 +217,19 @@ canvas {
   touch-action: manipulation;
 }
 
+.button-grid .btn img {
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+}
+
 .button-grid .btn:active {
   background: #555;
+}
+
+#btn-handle.active {
+  background: #3a4a3a;
+  border-color: #5a6a5a;
 }
 
 #panel-right {
@@ -116,14 +242,14 @@ canvas {
 
 #minimap {
   display: block;
-  background: #000;
 }
 
 .compass {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 4px;
+  gap: 6px;
+  padding: 6px;
   flex: 1;
 }
 
@@ -133,8 +259,8 @@ canvas {
   justify-content: center;
   font-family: 'Noto Sans Symbols 2', sans-serif;
   font-size: 1.2rem;
-  border: 1px solid #5a6a5a;
-  border-radius: 4px;
+  border: 2px solid #5a6a5a;
+  border-radius: 3px;
   background: #3a4a3a;
   color: #fff;
   cursor: pointer;
@@ -142,9 +268,25 @@ canvas {
   touch-action: manipulation;
 }
 
+.compass .btn img {
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+}
+
 .compass .btn.blocked {
   background: #333;
   border-color: #555;
+}
+
+.compass .btn.target {
+  background: #8a5a2a;
+  border-color: #cc8844;
+}
+
+.compass .btn.target-disabled {
+  background: #333;
+  border-color: #444;
 }
 
 .compass .btn:active {

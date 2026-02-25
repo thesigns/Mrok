@@ -9,37 +9,59 @@
         <script type="module" src="./js/main.js" ></script>
     </head>
     <body>
-        <div id="install-screen" hidden>
-            <button id="install-btn">Install Mrok</button>
-        </div>
-        <main hidden>
-            <div id="panel-left">
-                <div id="stats">Hit Points: 100</div>
-                <div class="button-grid">
-                    <div class="btn">?</div>
-                    <div class="btn">?</div>
-                    <div class="btn">?</div>
-                    <div class="btn">?</div>
-                    <div class="btn">?</div>
-                    <div class="btn">?</div>
-                    <div class="btn">?</div>
-                    <div class="btn">?</div>
-                    <div class="btn">?</div>
+        <main>
+            <div id="install-screen" hidden>
+                <button id="install-btn">Install Mrok</button>
+            </div>
+            <div id="installed-screen" hidden>
+                <div class="screen-message">
+                    <h2>Mrok Roguelike</h2>
+                    <p>You have Mrok installed on your device.</p>
+                    <p>Open it from your home screen or app drawer to play.</p>
+                    <p class="hint">If not installed yet, use your browser menu to add Mrok to your home screen.</p>
                 </div>
             </div>
-            <canvas width="360" height="360"></canvas>
-            <div id="panel-right">
-                <canvas id="minimap" width="210" height="138"></canvas>
-                <div class="compass">
-                    <div class="btn" data-dx="-1" data-dy="-1">↖</div>
-                    <div class="btn" data-dx="0" data-dy="-1">↑</div>
-                    <div class="btn" data-dx="1" data-dy="-1">↗</div>
-                    <div class="btn" data-dx="-1" data-dy="0">←</div>
-                    <div class="btn" data-dx="0" data-dy="0">·</div>
-                    <div class="btn" data-dx="1" data-dy="0">→</div>
-                    <div class="btn" data-dx="-1" data-dy="1">↙</div>
-                    <div class="btn" data-dx="0" data-dy="1">↓</div>
-                    <div class="btn" data-dx="1" data-dy="1">↘</div>
+            <div id="menu-screen" hidden>
+                <div class="menu-side">
+                    <button class="menu-btn" id="btn-back">Back to game</button>
+                </div>
+                <img src="./gfx/title.png" class="menu-title">
+                <div class="menu-side">
+                    <button class="menu-btn" id="btn-quit">Quit game</button>
+                </div>
+            </div>
+            <div id="game-screen" hidden>
+                <div id="panel-left">
+                    <canvas id="minimap" width="210" height="138"></canvas>
+                    <div class="compass">
+                        <div class="btn" data-dx="-1" data-dy="-1"><img src="./gfx/gui/icon-nw.png"></div>
+                        <div class="btn" data-dx="0" data-dy="-1"><img src="./gfx/gui/icon-n.png"></div>
+                        <div class="btn" data-dx="1" data-dy="-1"><img src="./gfx/gui/icon-ne.png"></div>
+                        <div class="btn" data-dx="-1" data-dy="0"><img src="./gfx/gui/icon-w.png"></div>
+                        <div class="btn" data-dx="0" data-dy="0"><img src="./gfx/gui/icon-wait.png"></div>
+                        <div class="btn" data-dx="1" data-dy="0"><img src="./gfx/gui/icon-e.png"></div>
+                        <div class="btn" data-dx="-1" data-dy="1"><img src="./gfx/gui/icon-sw.png"></div>
+                        <div class="btn" data-dx="0" data-dy="1"><img src="./gfx/gui/icon-s.png"></div>
+                        <div class="btn" data-dx="1" data-dy="1"><img src="./gfx/gui/icon-se.png"></div>
+                    </div>
+                </div>
+                <div class="viewport-wrap">
+                    <canvas width="360" height="360"></canvas>
+                    <div id="infobox"></div>
+                </div>
+                <div id="panel-right">
+                    <div id="stats">Hit Points: 100</div>
+                    <div class="button-grid">
+                        <div class="btn">?</div>
+                        <div class="btn">?</div>
+                        <div class="btn" id="btn-menu"><img src="./gfx/gui/icon-menu.png"></div>
+                        <div class="btn">?</div>
+                        <div class="btn" id="btn-handle"><img src="./gfx/gui/icon-handle.png"></div>
+                        <div class="btn">?</div>
+                        <div class="btn">?</div>
+                        <div class="btn">?</div>
+                        <div class="btn">?</div>
+                    </div>
                 </div>
             </div>
         </main>

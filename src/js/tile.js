@@ -6,6 +6,7 @@ export const TileType = {
   WATER_SHALLOW: "water_shallow",
   WATER_DEEP: "water_deep",
   GRAVE: "grave",
+  STAIRS_DOWN: "stairs_down",
 };
 
 export class Tile {
