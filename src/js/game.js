@@ -5,6 +5,7 @@ import { TileType } from "./tile.js";
 import { Infobox } from "./infobox.js";
 import { FOV } from "./fov.js";
 import { Keyboard } from "./keyboard.js";
+import { Astar } from "./astar.js";
 
 export class Game {
   constructor(canvas) {
@@ -50,6 +51,52 @@ export class Game {
       onHandle: () => this.handleHandle(),
       onMenu: () => document.querySelector("#btn-menu").click(),
       isActive: () => !document.querySelector("#game-screen").hidden,
+    });
+
+    // Mouse cursor overlay
+    this.overlay = document.createElement("canvas");
+    this.overlay.width = 360;
+    this.overlay.height = 360;
+    this.overlay.style.cssText = "position:absolute;top:0;left:0;pointer-events:none;background:transparent";
+    this.overlay.getContext("2d").imageSmoothingEnabled = false;
+    canvas.parentElement.appendChild(this.overlay);
+    this.cursorImg = new Image();
+    this.cursorImg.src = "./gfx/gui/cursor.png";
+
+    canvas.addEventListener("mousemove", (e) => {
+      const sx = Math.floor(e.offsetX / 24);
+      const sy = Math.floor(e.offsetY / 24);
+      const ctx = this.overlay.getContext("2d");
+      ctx.clearRect(0, 0, 360, 360);
+      if (this.cursorImg.complete) {
+        ctx.drawImage(this.cursorImg, sx * 24, sy * 24);
+      }
+    });
+
+    canvas.addEventListener("mouseleave", () => {
+      this.overlay.getContext("2d").clearRect(0, 0, 360, 360);
+    });
+
+    canvas.addEventListener("click", (e) => {
+      const sx = Math.floor(e.offsetX / 24);
+      const sy = Math.floor(e.offsetY / 24);
+      const player = this.session.player;
+      const camX = player.x - 7;
+      const camY = player.y - 7;
+      const wx = camX + sx;
+      const wy = camY + sy;
+
+      if (wx === player.x && wy === player.y) {
+        this.handleCompass(0, 0);
+        return;
+      }
+
+      const path = Astar.findPath(this.session.scene, player.x, player.y, wx, wy);
+      if (path && path.length > 0) {
+        const dx = path[0].x - player.x;
+        const dy = path[0].y - player.y;
+        this.handleCompass(dx, dy);
+      }
     });
   }
 

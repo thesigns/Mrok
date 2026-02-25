@@ -10,27 +10,17 @@
     </head>
     <body>
         <main>
-            <div id="install-screen" hidden>
-                <button id="install-btn">Install Mrok</button>
-            </div>
-            <div id="installed-screen" hidden>
-                <div class="screen-message">
-                    <h2>Mrok Roguelike</h2>
-                    <p>You have Mrok installed on your device.</p>
-                    <p>Open it from your home screen or app drawer to play.</p>
-                    <p class="hint">If not installed yet, use your browser menu to add Mrok to your home screen.</p>
-                </div>
-            </div>
             <div id="menu-screen" hidden>
                 <div class="menu-side">
                     <button class="menu-btn" id="btn-back">Back to game</button>
                 </div>
                 <img src="./gfx/title.png" class="menu-title">
                 <div class="menu-side">
+                    <button class="menu-btn" id="btn-install" hidden>Install app</button>
                     <button class="menu-btn" id="btn-quit">Quit game</button>
                 </div>
             </div>
-            <div id="game-screen" hidden>
+            <div id="game-screen">
                 <div id="panel-left">
                     <canvas id="minimap" width="210" height="138"></canvas>
                     <div class="compass">
