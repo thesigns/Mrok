@@ -4,6 +4,7 @@ import { Minimap } from "./minimap.js";
 import { TileType } from "./tile.js";
 import { Infobox } from "./infobox.js";
 import { FOV } from "./fov.js";
+import { Keyboard } from "./keyboard.js";
 
 export class Game {
   constructor(canvas) {
@@ -29,19 +30,10 @@ export class Game {
       const dx = parseInt(btn.dataset.dx);
       const dy = parseInt(btn.dataset.dy);
 
-      if (this.targeting) {
-        const entry = this.targeting.find(t => t.dx === dx && t.dy === dy);
-        this.cancelTargeting();
-        if (entry) {
-          this.useTile(entry);
-        }
-        return;
-      }
-
-      this.movePlayer(dx, dy);
+      this.handleCompass(dx, dy);
       this.stopRepeat();
       this.repeatTimeout = setTimeout(() => {
-        this.repeatInterval = setInterval(() => this.movePlayer(dx, dy), 100);
+        this.repeatInterval = setInterval(() => this.handleCompass(dx, dy), 100);
       }, 500);
     });
 
@@ -50,17 +42,14 @@ export class Game {
 
     this.handleBtn.addEventListener("pointerdown", (e) => {
       e.preventDefault();
-      if (this.targeting) {
-        this.cancelTargeting();
-        return;
-      }
-      const usable = this.getUsableTiles();
-      if (usable.length === 0) return;
-      if (usable.length === 1) {
-        this.useTile(usable[0]);
-      } else {
-        this.enterTargeting(usable);
-      }
+      this.handleHandle();
+    });
+
+    this.keyboard = new Keyboard({
+      onCompass: (dx, dy) => this.handleCompass(dx, dy),
+      onHandle: () => this.handleHandle(),
+      onMenu: () => document.querySelector("#btn-menu").click(),
+      isActive: () => !document.querySelector("#game-screen").hidden,
     });
   }
 
@@ -69,6 +58,32 @@ export class Game {
     clearInterval(this.repeatInterval);
     this.repeatTimeout = null;
     this.repeatInterval = null;
+  }
+
+  handleCompass(dx, dy) {
+    if (this.targeting) {
+      const entry = this.targeting.find(t => t.dx === dx && t.dy === dy);
+      this.cancelTargeting();
+      if (entry) {
+        this.useTile(entry);
+      }
+      return;
+    }
+    this.movePlayer(dx, dy);
+  }
+
+  handleHandle() {
+    if (this.targeting) {
+      this.cancelTargeting();
+      return;
+    }
+    const usable = this.getUsableTiles();
+    if (usable.length === 0) return;
+    if (usable.length === 1) {
+      this.useTile(usable[0]);
+    } else {
+      this.enterTargeting(usable);
+    }
   }
 
   movePlayer(dx, dy) {

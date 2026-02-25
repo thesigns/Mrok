@@ -203,6 +203,7 @@ canvas {
 }
 
 .button-grid .btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,6 +255,7 @@ canvas {
 }
 
 .compass .btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -291,4 +293,19 @@ canvas {
 
 .compass .btn:active {
   background: #4a5a4a;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .compass .btn::after,
+  .button-grid .btn::after {
+    content: attr(data-key);
+    position: absolute;
+    bottom: 1px;
+    right: 2px;
+    font-size: 0.55rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgba(255, 255, 255, 0.35);
+    line-height: 1;
+    pointer-events: none;
+  }
 }
